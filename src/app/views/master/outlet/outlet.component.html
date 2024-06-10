@@ -1,0 +1,78 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <strong>{{ title }}</strong>
+            </c-card-header>
+            <c-card-body>
+                <div *ngIf="loading; else content">
+                    <app-loader></app-loader>
+                </div>
+                <ng-template #content>
+                    <button cButton color="info" variant="outline" (click)="visibleFilter = !visibleFilter">
+                        <i class="fa fa-filter"></i> Filter
+                      </button>                      
+                    <button cButton color="success" variant="outline" [cModalToggle]="createOrUpdateForm.id"
+                        (click)="onCreateClicked()">Create New
+                        Data</button>
+                    <c-row class="mt-3" [visible]="visibleFilter" cCollapse>
+                        <c-col>
+                            <c-card class="mb-3">
+                                <c-card-body class="bg">
+                                    <c-row style="align-items: end;">
+                                        <c-col xs="4">
+                                            <label class="col-form-label">Type Store</label>
+                                            <ngx-select [items]="outletTypes" [(ngModel)]="selectedOutletType"
+                                                optionValueField="type" optionTextField="type_store"
+                                                (select)="onFilterChange()"></ngx-select>
+                                        </c-col>
+                                        <c-col xs="4">
+                                            <label class="col-form-label">Region Code</label>
+                                            <ngx-select [items]="regions" [(ngModel)]="selectedRegion"
+                                                optionValueField="regionCode" optionTextField="regionName"
+                                                (select)="onFilterChange('region')"></ngx-select>
+                                        </c-col>
+                                        <c-col xs="4">
+                                            <label class="col-form-label">Area Code</label>
+                                            <ngx-select [items]="areas" [(ngModel)]="selectedArea"
+                                                optionValueField="area_code" optionTextField="area_desc"
+                                                (select)="onFilterChange()"></ngx-select>
+                                        </c-col>
+                                    </c-row>
+                                </c-card-body>
+                            </c-card>
+                        </c-col>
+                    </c-row>
+                    <div class="mt-3">
+                        <table
+                            datatable
+                            [dtOptions]="dtOptions"
+                            (page.dt)="dtPageChange($event)"
+                            class="row-border hover"
+                        ></table>
+                    </div>
+                </ng-template>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+<button id="openModalButton" hidden [cModalToggle]="createOrUpdateForm.id"></button>
+<c-modal #createOrUpdateForm alignment="center" backdrop="static" id="createOrUpdateForm" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>{{ getModalTitle() }}</h5>
+        <button [cModalToggle]="createOrUpdateForm.id" cButtonClose (click)="onCancelClicked()"></button>
+    </c-modal-header>
+    <form [formGroup]="CreateUpdateForm" (ngSubmit)="onSubmitForm()">
+        <c-modal-body>
+            <c-row>
+                
+            </c-row>
+        </c-modal-body>
+        <c-modal-footer>
+            <button [cModalToggle]="createOrUpdateForm.id" cButton color="secondary" (click)="onCancelClicked()">
+                Cancel
+            </button>
+            <button type="submit" cButton color="success">Submit</button>
+        </c-modal-footer>
+    </form>
+</c-modal>

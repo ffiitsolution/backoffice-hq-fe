@@ -1,0 +1,15 @@
+{
+  "env": {
+    "name": "DEV"
+  },
+  "apiServer": {
+    "MASTER_SERVICE_BASE_URL": "http://192.168.10.28:6997",
+    "TRANSACTION_SERVICE_BASE_URL": "http://192.168.10.28:14022/boffi",
+    "PETTYCASH_SERVICE_BASE_URL": "http://192.168.10.28:6982",
+    "MASTER_SERVICE": "http://192.168.10.28:14023/master",
+    "BI_KFC_SERVICE_BASE_URL": "http://192.168.10.28:6993"
+  },
+  "applicationTitle": "BACK OFFICE",
+  "applicationSubtitle": "HEAD OFFICE",
+  "outletCode": "0208"
+}

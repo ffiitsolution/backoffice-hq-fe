@@ -1,0 +1,42 @@
+{
+    "data": [
+      {
+          "version": "1.0324.05.65b",
+          "date": "2024-03-15 10:23:41",
+          "changelog": {
+              "features": [
+                  "Kirim Terima Data",
+                  "Laporan Open Market",
+                  "Laporan Cash Pull"
+              ],
+              "bug_fixs": [
+                  "Master MPCS - Edit",
+                  "Fix margin title",
+                  "Disable auto-logout di Stock Opname dan EOD"
+              ],
+              "improvements": [
+                  "Add App Info",
+                  "Module",
+                  "Company Profile"
+              ],
+              "security_updates": []
+          }
+      },
+      {
+          "version": "1.0124.09.36c",
+          "date": "2024-01-15 16:23:41",
+          "changelog": {
+              "features": [
+                  "Tambah validasi input 0 di Stock Opname"
+              ],
+              "bug_fixs": [
+                  "Perbaikan report Sales By Item untuk brand Tacobell"
+              ],
+              "improvements": [
+                  "Pembaharuan keamanan feature"
+              ],
+              "security_updates": []
+          }
+      }
+    ]
+}

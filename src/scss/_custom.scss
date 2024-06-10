@@ -1,0 +1,544 @@
+// Here you can add other styles
+
+.sidebar.sidebar-fixed {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 1030;
+  background-color: #B51823;
+}
+
+.taco-brand {
+  background-color: rgb(88 42 171 / 82%) !important;
+}
+
+.footer {
+  font-size: 12px;
+}
+
+.sidebar-nav .nav-link {
+  font-weight: 400;
+  color: white;
+}
+
+c-sidebar-nav-group {
+  position: relative;
+  width: 100%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 90%;
+    height: 1px;
+    background-color: white;
+  }
+}
+
+.table {
+  margin-top: 2vh;
+  font-size: 14px;
+}
+
+.primary-color {
+  color: #B51823
+}
+
+.success-color {
+  color: #2eb85c
+}
+
+.bg-color-info {
+  background-color: #39f;
+  border: 1px solid #39f;
+  color: #f6f6f6;
+}
+
+.bg-color-info:hover {
+  background-color: transparent;
+  color: #39f;
+  border: 1px solid #39f;
+}
+
+.btn {
+  --cui-btn-disabled-opacity: 0.25;
+}
+
+.btn-primary {
+  --cui-btn-color: rgba(255, 255, 255, 0.87);
+  --cui-btn-bg: #B51823;
+  --cui-btn-border-color: #B51823;
+  --cui-btn-hover-color: rgba(255, 255, 255, 0.87);
+  --cui-btn-hover-bg: #white;
+  --cui-btn-hover-border-color: #B51823;
+  --cui-btn-focus-shadow-rgb: 75, 58, 223;
+  --cui-btn-active-color: rgba(255, 255, 255, 0.87);
+  --cui-btn-active-bg: #5b4ce2;
+  --cui-btn-active-border-color: #4735df;
+  --cui-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 21, 0.125);
+  --cui-btn-disabled-color: rgba(255, 255, 255, 0.87);
+  --cui-btn-disabled-bg: #B51823;
+  --cui-btn-disabled-border-color: #B51823;
+  --cui-btn-hover-color: #B51823;
+}
+
+.btn-success {
+  --cui-btn-color: rgba(255, 255, 255, 0.87);
+  --cui-btn-bg: #2eb85c;
+  --cui-btn-border-color: #2eb85c;
+  --cui-btn-hover-color: rgba(44, 56, 74, 0.95);
+  --cui-btn-hover-bg: #white;
+  --cui-btn-hover-border-color: #43bf6c;
+  --cui-btn-focus-shadow-rgb: 39, 156, 81;
+  --cui-btn-active-color: rgba(44, 56, 74, 0.95);
+  --cui-btn-active-bg: #58c67d;
+  --cui-btn-active-border-color: #43bf6c;
+  --cui-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 21, 0.125);
+  --cui-btn-disabled-color: rgba(255, 255, 255, 0.87);
+  --cui-btn-disabled-bg: #2eb85c;
+  --cui-btn-disabled-border-color: #2eb85c;
+}
+
+.btn-secondary {
+  --cui-btn-color: #000015;
+  --cui-btn-bg: #9da5b1;
+  --cui-btn-border-color: #9da5b1;
+  --cui-btn-hover-color: rgba(44, 56, 74, 0.95);
+  --cui-btn-hover-bg: #white;
+  --cui-btn-hover-border-color: #a7aeb9;
+  --cui-btn-focus-shadow-rgb: 133, 140, 154;
+  --cui-btn-active-color: rgba(44, 56, 74, 0.95);
+  --cui-btn-active-bg: #b1b7c1;
+  --cui-btn-active-border-color: #a7aeb9;
+  --cui-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 21, 0.125);
+  --cui-btn-disabled-color: #000015;
+  --cui-btn-disabled-bg: #9da5b1;
+  --cui-btn-disabled-border-color: #9da5b1;
+}
+
+b,
+strong {
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+.ngx-pagination {
+  padding-left: 0px !important;
+  // border: 1px solid #B51823;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.ngx-pagination .current,
+.btn-info {
+  // background: #B51823 !important;
+  border: transparent !important;
+}
+
+.ngx-pagination .current:hover {
+  background: #B51823 !important;
+  border: transparent !important;
+}
+
+.ngx-pagination a,
+.ngx-pagination button {
+  text-decoration: unset;
+}
+
+.border-right-grey {
+  border-right: 1px solid #adafb1;
+}
+
+.border-bottom-grey {
+  border-right: 1px solid #adafb1;
+}
+
+.border-top-grey {
+  border-top: 1px solid #adafb1;
+}
+
+.modal-overflow {
+  max-height: 550px;
+  overflow-y: auto;
+}
+
+.badge {
+  --cui-badge-padding-x: 0.65em;
+  --cui-badge-padding-y: 0.35em;
+  --cui-badge-font-size: 0.75em;
+  --cui-badge-font-weight: 700;
+  --cui-badge-color: rgba(255, 255, 255, 0.87);
+  --cui-badge-border-radius: 0.375rem;
+  display: inline-block;
+  padding: var(--cui-badge-padding-y) var(--cui-badge-padding-x);
+  font-size: var(--cui-badge-font-size);
+  font-weight: var(--cui-badge-font-weight);
+  line-height: 1;
+  color: var(--cui-badge-color);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: var(--cui-badge-border-radius, 0);
+  border: solid 2px white;
+}
+
+.sidebar-toggler {
+  background-color: #B51823;
+}
+
+.sidebar-toggler:hover {
+  background-color: #B51823;
+}
+
+.sidebar-nav .nav-link.active {
+  background: #B51823cc;
+  font-weight: 700;
+  color: #fff;
+}
+
+.taco-brand .sidebar-nav .nav-link.active,
+.sidebar-taco-brand.sidebar-toggler {
+  background: #421883 !important;
+}
+
+.sidebar-nav .nav-group.show .nav-group-toggle,
+.sidebar-nav .nav-group.show .nav-icon {
+  font-weight: 500;
+  color: #fff;
+}
+
+#appendedInputButton.form-control:focus {
+  box-shadow: none;
+  border-color: #333333;
+  border-left-color: transparent;
+}
+
+.form-control:focus {
+  border: 1px solid #2eb85c;
+  box-shadow: 5px 0px 7px #b518232b;
+}
+
+.btn-secondary,
+.btn-primary,
+.btn:first-child:active.btn-success,
+.btn-outline-success:hover {
+  color: #f6f6f6
+}
+
+.btn:hover.btn-danger,
+.btn:active.btn-primary {
+  color: #B51823;
+  background-color: transparent;
+  border: 1px solid #B51823;
+}
+
+.btn-secondary:hover {
+  color: #333333;
+}
+
+.available-item.ng-star-inserted:hover {
+  color: #B51823 !important;
+}
+
+.available-item.ng-star-inserted {
+  padding: 3px 9px !important;
+}
+
+.btn-success:hover {
+  color: #2eb85c;
+}
+
+.badge.bg-secondary,
+.badge.bg-success {
+  border: 0;
+  font-weight: 500 !important;
+}
+
+.edit-flex {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.wrapper-table {
+  width: 100%;
+  margin: 0 4px;
+  overflow-x: auto;
+}
+
+#dataTable thead tr,
+#dataTable tbody tr {
+  vertical-align: middle;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-last-right {
+  text-align-last: right;
+}
+
+.btn-close:focus {
+  box-shadow: none;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: end;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.btn-success.swal2-styled.swal2-confirm,
+.btn-danger.swal2-styled.swal2-cancel {
+  padding: 8px 24px;
+  width: 200px;
+  height: 44px;
+  border-radius: 0.375rem;
+}
+
+.btn-success.swal2-styled.swal2-confirm {
+  background-color: #2eb85c;
+}
+
+.btn-danger.swal2-styled.swal2-cancel {
+  background-color: hsl(356, 77%, 40%);
+}
+
+.btn-success.swal2-styled.swal2-confirm:focus {
+  box-shadow: none;
+}
+
+.btn-success.swal2-styled.swal2-confirm:active {
+  color: #fff;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.md-drppicker .ranges ul li button.active,
+.md-drppicker .btn,
+.md-drppicker td.active {
+  background-color: #B51823 !important;
+}
+
+.md-drppicker .btn {
+  border-radius: 10px !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.ngx-dropdown-container .ngx-dropdown-list-container .selected-items.selected-items .selected-item {
+  background-color: #B51823 !important;
+  display: flex !important;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.form-check-input {
+  margin-top: 0;
+}
+
+.ngx-dropdown-button {
+  padding: 6px 12px !important;
+  border: 1px solid var(--cui-input-border-color, #b1b7c1) !important;
+  border-radius: 6px !important;
+}
+
+.form-label {
+  margin-bottom: 0;
+}
+
+.ngx-dropdown-list-container {
+  top: 37px !important;
+  max-height: 21rem !important;
+}
+
+input[type=time] {
+  padding: 6px 12px;
+  border: 1px solid var(--cui-input-border-color, #b1b7c1);
+  border-radius: 5px;
+  width: 50%;
+}
+
+.select-options span:not(.lever) {
+  padding-left: 8px !important;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+.search-container input:focus {
+  border-bottom: 1px solid #B51823 !important;
+}
+
+label,
+input[type=radio] {
+  cursor: pointer !important;
+}
+
+.form-check-input:checked {
+  background-color: #B51823;
+  border-color: #B51823;
+}
+
+.form-check-input:focus {
+  box-shadow: none !important;
+}
+
+.radio-field.form-check {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.form-type-pos .ngx-dropdown-list-container {
+  max-height: 9rem !important;
+}
+
+#mpcsGroupModal .modal-dialog {
+  min-width: 52rem !important;
+}
+
+#user .ngx-dropdown-list-container {
+  max-height: 8rem !important;
+}
+
+#user-data .ngx-dropdown-list-container {
+  max-height: 14rem !important;
+}
+
+#KFC {
+  .border-dynamic {
+    border-color: #B51823 !important;
+  }
+}
+
+#TACOBELL {
+  .btn-outline-danger:hover {
+    color: #fff !important;
+  }
+
+  .text-color,
+  .btn-custom,
+  .btn-outline-danger,
+  .text-color-title,
+  .text-color-gudang,
+  .text-format,
+  .warning-box,
+  .text-information,
+  .wrapper-menu__header .active,
+  .btn-danger:hover,
+  .btn-primary:hover,
+  .btn-order-item:hover,
+  .available-item.ng-star-inserted:hover {
+    color: #542d8f !important;
+    // color: #b51823;
+  }
+
+  .btn-custom,
+  .btn.btn-danger,
+  .btn-outline-danger,
+  .btn-primary,
+  .box-custom-gudang,
+  .wrapper-menu__header .active,
+  .filter-container .filter-item,
+  .btn-danger:hover,
+  .btn-primary:hover,
+  .btn-order-item:hover {
+    border-color: #542d8f !important;
+    border-width: 2px;
+  }
+
+  .garis_verikal,
+  .border-dynamic {
+    border-color: #542d8f !important;
+  }
+
+  .btn-danger,
+  .ngx-pagination .current,
+  .btn-primary,
+  .btn-outline-danger:hover {
+    background-color: #542d8f !important;
+  }
+
+  .btn-outline-danger,
+  .btn-primary:hover,
+  .btn-danger:hover {
+    background-color: transparent !important;
+  }
+
+  .box-custom-gudang {
+    border-width: 4px;
+  }
+}
+
+.disable-selection {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.button-action {
+  button {
+    border-radius: 6px;
+    padding: 5px;
+    line-height: 1;
+    letter-spacing: 0.4px;
+    font-weight: 400;
+    font-size: 13px;
+    min-width: 65px;
+    margin: 3px 0;
+    border: 2px solid #2AB752;
+    transition: all 0.5s ease;
+    background-color: transparent;
+    white-space: nowrap;
+    color: #2AB752;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+      color: #FFFFFF !important;
+      background-color: #2AB752 !important;
+      border: 2px solid #2AB752 !important;
+      box-shadow: 0;
+    }
+  }
+}
+
+.modal-footer {
+  justify-content: center;
+}

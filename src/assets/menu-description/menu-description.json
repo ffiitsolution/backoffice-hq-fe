@@ -1,0 +1,15 @@
+{
+    "master": {
+        "master_user": "Untuk menambahkan dan menonaktifkan user di back office dan POS",
+        "master_global": "Untuk otoritas IT dan hanya view",
+        "master_outlet": "Untuk melihat detail outlet dan seting pos yang di gunakan (pos yang bukan storenya tidak akan berpengaruh)",
+        "master_menu": "Master menu digunakan untuk melihat menu-menu yang terdapat pada back office baik yang statusnya aktif maupun non aktif",
+        "master_price": "Master price digunakan untuk melihat menu jual beserta harga dan tipe harga sebelum pajak yang terdapat pada back office",
+        "master_fryer_type": "Untuk melihat fryer yang di gunakan dan menonaktifkan fryer",
+        "master_group_item": "Master group item digunakan untuk melihat resep suatu menu yang dijual baik berupa menu alacarte maupun combo, adapun item yang ditampilkan merupakan item keseluruhan setelah ada penggabungan dari resep produksi ",
+        "master_supplier": "Master supplier digunakan oleh cabang untuk melakukan pengorderan ke supplier, suplier yang ada umumnya suplier lokal dan suplier yang sudah di tunjuk oleh purchasing untuk pembelian (purchase order).",
+        "master_item": "Master Item digunakan oleh user untuk melihat item-item yang ada di back office, baik item raw material, item jual paket/ non paket, item FSD dan SDD.",
+        "master_recipe_produksi": "Master recipe produksi digunakan untuk melihat dan mengecek resep produksi yang digunakan untuk proses barcode. Baik dari komposisi bahan baku yang dipakai untuk prosesnya dan hasil jadi ½ matang, dan product matangnya.",
+        "mpcs": "Master MPCS digunakan untuk melihat pemasakkan yang terhubung dengan fryernya hal ini terkait untuk proses barcode dan penggantian minyak."
+    }
+}

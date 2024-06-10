@@ -1,0 +1,14 @@
+.badge-status {
+    background: #808080;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+    padding: 5px 9px;
+    width: 100%;
+    border-radius: 40px;
+
+    &__A {
+        background: #2EB85C !important;
+    }
+}

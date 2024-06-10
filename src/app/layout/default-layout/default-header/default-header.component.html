@@ -1,0 +1,84 @@
+<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+<ng-container>
+    <c-container [fluid]="true">
+        <button toggle="visible" cHeaderToggler [cSidebarToggle]="sidebarId" class="ps-1">
+            <svg cIcon name="cilMenu" size="lg"></svg>
+        </button>
+        <c-header-nav class="d-none d-lg-flex me-auto">
+        </c-header-nav>
+        <c-header-nav class="d-none d-lg-flex items-center">
+            <c-nav-item>
+                <a cNavLink>
+                    Welcome Back&nbsp; <strong>{{user?.staffFullName}}</strong> - {{user?.groupId}}
+                </a>
+            </c-nav-item>
+            <c-nav-item>
+                <a cNavLink>
+                    <p style="margin: 0;">|</p>
+                </a>
+            </c-nav-item>
+            <c-nav-item>
+                <a cNavLink>
+                    {{user?.outletName}} - {{user?.outletCode}}
+                </a>
+            </c-nav-item>
+            <c-nav-item>
+                <a cNavLink>
+                    <p style="margin: 0;">|</p>
+                </a>
+            </c-nav-item>
+            <c-nav-item>
+                <a cNavLink style="font-weight: 800; font-size: 18px;">
+                    {{user?.transDate | date:'dd MMMM yyyy'}}
+                </a>
+            </c-nav-item>
+        </c-header-nav>
+        <c-header-nav class="ms-3">
+            <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
+        </c-header-nav>
+
+    </c-container>
+</ng-container>
+<!--</c-header>-->
+
+<ng-template #userDropdown>
+    <c-dropdown alignment="end" variant="nav-item">
+        <button cButton color="" [caret]="false" cDropdownToggle class="py-0" style="background-color: #EEEEEE;
+          border-radius: 10px;
+          width: 40px;
+          height: 40px;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;">
+            <i class="fa fa-user" aria-hidden="true" style="font-size: 25px;"></i>
+        </button>
+        <ul cDropdownMenu class="pr-5 w-auto" style="padding: 15px !important;">
+            <li class="wrapper-user">
+                <b class="wrapper-user__title">User Profile</b>
+                <div class="wrapper-user__profile">
+                    <i class="fa fa-user" aria-hidden="true"
+                        style="font-size: 20px;margin-right: 1rem;margin-top: 4px;"></i>
+                    <div>
+                        <p class="wrapper-user__info">{{user?.staffFullName}}</p>
+                        <p class="wrapper-user__info">{{user?.groupId}}</p>
+                        <p class="wrapper-user__info">{{user?.phone}}</p>
+                        <p class="wrapper-user__info">{{user?.outletName}} - {{user?.outletCode}}</p>
+                        <p class="wrapper-user__info">{{user?.address1}}</p>
+                    </div>
+                </div>
+            </li>
+            <hr />
+
+            <li class="wrapper-user logout" (click)="logout()">
+                <div class="wrapper-user__profile">
+                    <i class="fa fa-sign-out" aria-hidden="true"
+                        style="font-size: 20px;margin-right: 1rem;margin-top: 4px;"></i>
+                    <div>
+                        <p class="wrapper-user__info">Logout</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </c-dropdown>
+</ng-template>

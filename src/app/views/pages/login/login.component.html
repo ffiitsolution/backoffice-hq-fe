@@ -1,0 +1,54 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <c-container>
+        <c-row class="justify-content-center">
+            <c-col md="8">
+                <c-card-group>
+                    <c-card class="p-4">
+                        <c-card-body>
+                            <form cForm>
+                                <h4 class="text-center mb-1">{{ appTitle }}</h4>
+                                <h2 class="text-center">{{ appSubtitle }}</h2>
+                                <br>
+                                <p class="text-medium-emphasis">Sign In to your account</p>
+                                <p *ngIf="errorMessage" class="text-danger" style="text-align:center;">{{ errorMessage
+                                    }}</p>
+                                <c-input-group class="mb-3">
+                                    <span cInputGroupText>
+                                        <svg cIcon name="cilUser"></svg>
+                                    </span>
+                                    <input type="text" #userNameInput name="userCode" placeholder="Username"
+                                        required="true" class="form-control input-lg" [(ngModel)]="username" />
+                                </c-input-group>
+                                <c-input-group class="mb-4">
+                                    <span cInputGroupText>
+                                        <svg cIcon name="cilLockLocked"></svg>
+                                    </span>
+                                    <input type="password" #userPasswordInput (keyup.enter)="doLogin()"
+                                        class="form-control input-lg" name="password" required="true" id="password"
+                                        placeholder="Password" [(ngModel)]="password" />
+                                </c-input-group>
+                                <c-row>
+                                    <c-col xs="6">
+                                        <button cButton class="px-4" (click)="doLogin()" [disabled]="isLoading">
+                                            Login
+                                        </button>
+                                    </c-col>
+                                </c-row>
+                            </form>
+                        </c-card-body>
+                    </c-card>
+                    <c-card [ngStyle]="{'width.%': 44}" class="text-white py-5">
+                        <c-card-body class="text-center disable-selection">
+                            <img src="./assets/img/brand/logo_kfc.png" class="img-fluid mx-auto d-block"
+                                style="max-width: 55%;" alt="LOGO KFC" draggable="false">
+                            <img src="./assets/img/jagonya_ayam.png" class="img-fluid" style="max-width: 45%;"
+                                alt="JAGONYA AYAM" draggable="false">
+                        </c-card-body>
+                        <p class="text-medium-emphasis text-center" style="font-size:13px;">IT Department PT.Fast Food
+                            Indonesia, Tbk. <br> Version {{ version }} at 2023 - {{year}} </p>
+                    </c-card>
+                </c-card-group>
+            </c-col>
+        </c-row>
+    </c-container>
+</div>
