@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet>e</router-outlet>',
+  template: '<router-outlet></router-outlet>',
   providers: []
 })
 export class AppComponent implements OnInit {
