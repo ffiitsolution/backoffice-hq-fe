@@ -537,7 +537,44 @@ input[type=radio] {
       box-shadow: 0;
     }
   }
+
+  .action-view {
+    border: 2px solid #3399FF; /* Yellow border */
+    color: #3399FF; /* Yellow text */
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+      background-color: #3399FF !important;
+      border: 2px solid #3399FF !important;
+    }
+  }
+
+  .action-edit {
+    border: 2px solid #FFBF00; /* Yellow border */
+    color: #FFBF00; /* Yellow text */
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+      background-color: #FFBF00 !important;
+      border: 2px solid #FFBF00 !important;
+    }
+  }
+
+  .action-delete {
+    border: 2px solid #FF0000; /* Red border */
+    color: #FF0000; /* Red text */
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+      background-color: #FF0000 !important;
+      border: 2px solid #FF0000 !important;
+    }
+  }
 }
+
 
 .modal-footer {
   justify-content: center;

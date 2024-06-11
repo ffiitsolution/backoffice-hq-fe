@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService } from '../../../services/app.service'
+import { AppService, AppServiceType } from '../../../services/app.service'
 import { finalize } from 'rxjs';
 import { FORM_STATUS } from '../../../constants/libraries/form-status';
 
@@ -45,7 +45,7 @@ export class GroupItemComponent implements OnInit {
     const params: any = {
       status: 'A',
     };
-    this.appSvc.listGroupItem(params).pipe(finalize(() => this.loading = false)).subscribe(response => {
+    this.appSvc.post(AppServiceType.LIST_GROUP_ITEM, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
       this.dataItems = response?.data || [];
     });
   }

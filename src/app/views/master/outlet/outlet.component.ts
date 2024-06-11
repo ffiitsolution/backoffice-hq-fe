@@ -1,21 +1,23 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService, AppType } from '../../../services/app.service'
+import { AppService, AppServiceType } from '../../../services/app.service'
 import { Subject } from 'rxjs';
 import { FORM_STATUS } from '../../../constants/libraries/form-status';
 import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
 import { Page } from '../../../models/page';
 import { ACTION } from '../../../constants/libraries/action';
+import { BtnActionComponent } from 'src/app/core/btn-action/btn-action.component';
 
 @Component({
   selector: 'app-outlet',
   templateUrl: './outlet.component.html',
   styleUrls: ['./outlet.component.scss']
 })
-export class OutletComponent implements OnInit {
+export class OutletComponent implements AfterContentInit, OnInit {
 
   title: string = 'Master Outlet';
+  @ViewChild('btnAction') btnAction: TemplateRef<BtnActionComponent>;
 
   visibleFilter: boolean = false;
   loading: boolean = false;
@@ -57,6 +59,9 @@ export class OutletComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.initFilter();
+  }
+
+  ngAfterContentInit(): void {
     this.initTable();
   }
 
@@ -67,14 +72,11 @@ export class OutletComponent implements OnInit {
   }
 
   initFilter(): void {
-    this.appSvc.listTypeOutlet().subscribe(response => {
+    this.appSvc.post(AppServiceType.LIST_OUTLET_TYPE, {}).subscribe(response => {
       this.outletTypes = response?.data || [];
     });
-    this.appSvc.listRegion().subscribe(response => {
+    this.appSvc.post(AppServiceType.LIST_REGION, {}).subscribe(response => {
       this.regions = response?.data || [];
-    });
-    this.appSvc.listRegion().subscribe(response => {
-      this.areas = response?.data || [];
     });
   }
 
@@ -120,7 +122,7 @@ export class OutletComponent implements OnInit {
         this.page.start = dataTablesParameters.start;
         this.page.length = dataTablesParameters.length;
         this.appSvc
-          .post(AppType.LIST_OUTLET, dataTablesParameters)
+          .post(AppServiceType.LIST_OUTLET, dataTablesParameters)
           .subscribe((resp: any) => {
             const mappedData = mapData(resp);
             this.page.recordsTotal = resp.recordsTotal;
@@ -151,11 +153,11 @@ export class OutletComponent implements OnInit {
           render: (data: any, type: any, row: any) => {
             return `
               <div class="button-action">
-                <button class="btn btn-sm btn-primary action-edit">Edit</button>
-                <button class="btn btn-sm btn-danger action-delete">Delete</button>
+                <button class="action-edit"><i class="fa fa-pencil"></i> Edit</button>
+                <button class="action-delete"><i class="fa fa-trash"></i> Delete</button>
               </div>
             `;
-          }
+          },
         }
       ],
       searchDelay: 1500,
@@ -189,7 +191,7 @@ export class OutletComponent implements OnInit {
       const params = {
         region_code: this.selectedRegion
       }
-      this.appSvc.listArea(params).subscribe(response => {
+      this.appSvc.post(AppServiceType.LIST_AREA, params).subscribe(response => {
         this.areas = response?.data || [];
       });
     }

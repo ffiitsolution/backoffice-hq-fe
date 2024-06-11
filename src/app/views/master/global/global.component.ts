@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService } from '../../../services/app.service'
+import { AppService, AppServiceType } from '../../../services/app.service'
 import { finalize } from 'rxjs';
 import { FORM_STATUS } from '../../../constants/libraries/form-status';
 
@@ -55,7 +55,7 @@ export class GlobalComponent implements OnInit {
   }
 
   initFilter(): void {
-    this.appSvc.listGlobalCondition().subscribe(response => {
+    this.appSvc.post(AppServiceType.LIST_GLOBAL_CONDITION, {}).subscribe(response => {
       this.conditions = (response?.data || []).map((x: any) => {
         return {
           code: x.cond,
@@ -72,7 +72,7 @@ export class GlobalComponent implements OnInit {
       cond: this.selectedCondition,
       status: this.selectedStatus,
     };
-    this.appSvc.listGlobal(params).pipe(finalize(() => this.loading = false)).subscribe(response => {
+    this.appSvc.post(AppServiceType.LIST_GLOBAL, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
       this.dataItems = response?.data || [];
     });
   }

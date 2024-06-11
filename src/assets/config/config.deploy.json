@@ -3,11 +3,7 @@
     "name": "#{envName}"
   },
   "apiServer": {
-    "MASTER_SERVICE_BASE_URL": "http://192.168.10.28:6997",
-    "TRANSACTION_SERVICE_BASE_URL": "http://192.168.10.28:14022/boffi",
-    "PETTYCASH_SERVICE_BASE_URL": "http://192.168.10.28:6982",
-    "MASTER_SERVICE": "http://192.168.10.28:14023/master",
-    "BI_KFC_SERVICE_BASE_URL": "http://192.168.10.28:6993"
+    "BASE_URL": "http://192.168.10.28:14022/boffi"
   },
   "applicationTitle": "BACK OFFICE",
   "applicationSubtitle": "HEAD OFFICE",

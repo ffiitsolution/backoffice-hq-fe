@@ -37,12 +37,14 @@ import { TableNodataComponent } from './table-nodata/table-nodata.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { StatusComponent } from './status/status.component';
 import { DataTablesModule } from 'angular-datatables';
+import { BtnActionComponent } from './btn-action/btn-action.component';
 
 @NgModule({
   declarations: [
     LoaderComponent,
     TableNodataComponent,
-    StatusComponent
+    StatusComponent,
+    BtnActionComponent
   ],
   imports: [
     CommonModule,
@@ -113,7 +115,8 @@ import { DataTablesModule } from 'angular-datatables';
     TableNodataComponent,
     NgxSelectModule,
     StatusComponent,
-    DataTablesModule
+    DataTablesModule,
+    BtnActionComponent
   ]
 })
 export class CoreModule { }

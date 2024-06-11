@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  protected config = AppConfig.settings.apiServer;
+  protected BASE_URL = AppConfig.settings.apiServer.BASE_URL;
 
   constructor(
     private router: Router,
@@ -16,7 +16,7 @@ export class AuthService {
   ) { }
   
   doLogin(username: any, password: any): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/login', {
+    return this.httpClient.post(this.BASE_URL + '/login', {
       userName: username,
       password: password,
       outletCode: '0208'

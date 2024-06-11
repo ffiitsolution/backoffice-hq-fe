@@ -3,84 +3,82 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../config/app.config';
 
-export enum AppType {
-  LIST_OUTLET
+export enum AppServiceType {
+  LIST_OUTLET,
+  LIST_GLOBAL_CONDITION,
+  LIST_GLOBAL,
+  LIST_OUTLET_TYPE,
+  LIST_REGION,
+  LIST_AREA,
+  LIST_ITEM_PRICE,
+  LIST_MENU_GROUP,
+  LIST_ITEM,
+  LIST_GROUP_ITEM,
+  LIST_RECIPE
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  protected config = AppConfig.settings.apiServer;
+  protected BASE_URL = AppConfig.settings.apiServer.BASE_URL;
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  listGlobalCondition(params: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/list-cond-global', params);
+  get(type: AppServiceType, params: any, pathParam: string | null = null): Observable<any> {
+    return this.httpClient.get(this.getUrl(type) + (pathParam ? `/${pathParam}` : ''), { params: params });
   }
 
-  listGlobal(param: any): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/list-master-global', param);
+  put(type: AppServiceType, body: any, pathParam: string | null = null): Observable<any> {
+    return this.httpClient.put(this.getUrl(type) + (pathParam ? `/${pathParam}` : ''), body);
   }
 
-  listOutlet(param: any): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/list-outlet', param);
+  post(type: AppServiceType, body: any): Observable<any> {
+    return this.httpClient.post(this.getUrl(type), body);
   }
 
-  listTypeOutlet(param: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/list-type-store', param);
-  }
-
-  listRegion(param: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/list-region', param);
-  }
-
-  listArea(param: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/list-area', param);
-  }
-
-  listItemPrice(param: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/list-item-price', param);
-  }
-
-  listMenuGroup(param: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/list-menu-group', param);
-  }
-
-  listItem(param: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/item', param);
-  }
-
-  listGroupItem(param: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/menu-items', param);
-  }
-
-  listRecipe(param: any = {}): Observable<any> {
-    return this.httpClient.post(this.config.TRANSACTION_SERVICE_BASE_URL + '/recipe-header', param);
-  }
-
-  get(type: AppType, params: any): Observable<any> {
-    return this.httpClient.get(this.getUrl(type), params);
-  }
-
-  put(type: AppType, params: any): Observable<any> {
-    return this.httpClient.put(this.getUrl(type), params);
-  }
-
-  post(type: AppType, params: any): Observable<any> {
-    return this.httpClient.post(this.getUrl(type), params);
-  }
-
-  private getUrl(type: AppType): string {
+  private getUrl(type: AppServiceType): string {
     let url = '';
     switch (type) {
-      case AppType.LIST_OUTLET:
-        // url = this.config.TRANSACTION_SERVICE_BASE_URL + 'outlet/dt';
+      case AppServiceType.LIST_OUTLET:
+        // url = this.BASE_URL + 'outlet/dt';
         url = 'http://172.16.9.127:8093/backofficeho/api/outlet/dt';
         break;
+      case AppServiceType.LIST_GLOBAL_CONDITION:
+        url = this.BASE_URL + '/list-cond-global';
+        break;
+      case AppServiceType.LIST_GLOBAL:
+        url = this.BASE_URL + '/list-master-global';
+        break;
+      case AppServiceType.LIST_OUTLET_TYPE:
+        url = this.BASE_URL + '/list-type-store';
+        break;
+      case AppServiceType.LIST_REGION:
+        url = this.BASE_URL + '/list-region';
+        break;
+      case AppServiceType.LIST_AREA:
+        url = this.BASE_URL + '/list-area';
+        break;
+      case AppServiceType.LIST_ITEM_PRICE:
+        url = this.BASE_URL + '/list-item-price';
+        break;
+      case AppServiceType.LIST_MENU_GROUP:
+        url = this.BASE_URL + '/list-menu-group';
+        break;
+      case AppServiceType.LIST_ITEM:
+        url = this.BASE_URL + '/item';
+        break;
+      case AppServiceType.LIST_GROUP_ITEM:
+        url = this.BASE_URL + '/menu-items';
+        break;
+      case AppServiceType.LIST_RECIPE:
+        url = this.BASE_URL + '/recipe-header';
+        break;
     }
+    console.log(url);
+    
     return url
   }
 }
