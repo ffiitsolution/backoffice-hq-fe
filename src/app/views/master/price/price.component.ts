@@ -46,7 +46,7 @@ export class PriceComponent implements OnInit {
     const params: any = {
       outletCode: '0208',
     };
-    this.appSvc.post(AppServiceType.LIST_ITEM_PRICE, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
+    this.appSvc.post(AppServiceType.MASTER_ITEM_PRICE, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
       this.dataItems = response?.data || [];
     });
   }

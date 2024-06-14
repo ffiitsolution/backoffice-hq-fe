@@ -43,7 +43,7 @@ export class RecipeComponent implements OnInit {
     this.loading = true;
     this.dataItems = [];
     const params: any = { };
-    this.appSvc.post(AppServiceType.LIST_RECIPE, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
+    this.appSvc.post(AppServiceType.MASTER_RECIPE, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
       this.dataItems = response?.data || [];
     });
   }

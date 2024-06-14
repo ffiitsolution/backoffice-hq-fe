@@ -3,7 +3,7 @@
     "name": "DEV"
   },
   "apiServer": {
-    "BASE_URL": "http://192.168.10.28:14022/boffi"
+    "BASE_URL": "http://localhost:8093/backofficeho/api"
   },
   "applicationTitle": "BACK OFFICE",
   "applicationSubtitle": "HEAD OFFICE",

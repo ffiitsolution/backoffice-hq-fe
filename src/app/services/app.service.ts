@@ -4,17 +4,17 @@ import { Observable } from 'rxjs';
 import { AppConfig } from '../config/app.config';
 
 export enum AppServiceType {
-  LIST_OUTLET,
-  LIST_GLOBAL_CONDITION,
-  LIST_GLOBAL,
-  LIST_OUTLET_TYPE,
-  LIST_REGION,
-  LIST_AREA,
-  LIST_ITEM_PRICE,
-  LIST_MENU_GROUP,
-  LIST_ITEM,
-  LIST_GROUP_ITEM,
-  LIST_RECIPE
+  MASTER_OUTLET,
+  MASTER_GLOBAL_CONDITION,
+  MASTER_GLOBAL,
+  MASTER_OUTLET_TYPE,
+  MASTER_REGION,
+  MASTER_AREA,
+  MASTER_ITEM_PRICE,
+  MASTER_MENU_GROUP,
+  MASTER_ITEM,
+  MASTER_GROUP_ITEM,
+  MASTER_RECIPE
 }
 
 @Injectable({
@@ -35,45 +35,45 @@ export class AppService {
     return this.httpClient.put(this.getUrl(type) + (pathParam ? `/${pathParam}` : ''), body);
   }
 
-  post(type: AppServiceType, body: any): Observable<any> {
-    return this.httpClient.post(this.getUrl(type), body);
+  post(type: AppServiceType, body: any, pathParam: string | null = null): Observable<any> {
+    return this.httpClient.post(this.getUrl(type) + (pathParam ? `/${pathParam}` : ''), body);
   }
 
   private getUrl(type: AppServiceType): string {
     let url = '';
     switch (type) {
-      case AppServiceType.LIST_OUTLET:
+      case AppServiceType.MASTER_OUTLET:
         // url = this.BASE_URL + 'outlet/dt';
         url = 'http://172.16.9.127:8093/backofficeho/api/outlet/dt';
         break;
-      case AppServiceType.LIST_GLOBAL_CONDITION:
+      case AppServiceType.MASTER_GLOBAL_CONDITION:
         url = this.BASE_URL + '/list-cond-global';
         break;
-      case AppServiceType.LIST_GLOBAL:
-        url = this.BASE_URL + '/list-master-global';
+      case AppServiceType.MASTER_GLOBAL:
+        url = this.BASE_URL + '/global';
         break;
-      case AppServiceType.LIST_OUTLET_TYPE:
+      case AppServiceType.MASTER_OUTLET_TYPE:
         url = this.BASE_URL + '/list-type-store';
         break;
-      case AppServiceType.LIST_REGION:
+      case AppServiceType.MASTER_REGION:
         url = this.BASE_URL + '/list-region';
         break;
-      case AppServiceType.LIST_AREA:
+      case AppServiceType.MASTER_AREA:
         url = this.BASE_URL + '/list-area';
         break;
-      case AppServiceType.LIST_ITEM_PRICE:
+      case AppServiceType.MASTER_ITEM_PRICE:
         url = this.BASE_URL + '/list-item-price';
         break;
-      case AppServiceType.LIST_MENU_GROUP:
+      case AppServiceType.MASTER_MENU_GROUP:
         url = this.BASE_URL + '/list-menu-group';
         break;
-      case AppServiceType.LIST_ITEM:
+      case AppServiceType.MASTER_ITEM:
         url = this.BASE_URL + '/item';
         break;
-      case AppServiceType.LIST_GROUP_ITEM:
+      case AppServiceType.MASTER_GROUP_ITEM:
         url = this.BASE_URL + '/menu-items';
         break;
-      case AppServiceType.LIST_RECIPE:
+      case AppServiceType.MASTER_RECIPE:
         url = this.BASE_URL + '/recipe-header';
         break;
     }

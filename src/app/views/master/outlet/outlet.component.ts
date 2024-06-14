@@ -72,10 +72,10 @@ export class OutletComponent implements AfterContentInit, OnInit {
   }
 
   initFilter(): void {
-    this.appSvc.post(AppServiceType.LIST_OUTLET_TYPE, {}).subscribe(response => {
+    this.appSvc.post(AppServiceType.MASTER_OUTLET_TYPE, {}).subscribe(response => {
       this.outletTypes = response?.data || [];
     });
-    this.appSvc.post(AppServiceType.LIST_REGION, {}).subscribe(response => {
+    this.appSvc.post(AppServiceType.MASTER_REGION, {}).subscribe(response => {
       this.regions = response?.data || [];
     });
   }
@@ -122,7 +122,7 @@ export class OutletComponent implements AfterContentInit, OnInit {
         this.page.start = dataTablesParameters.start;
         this.page.length = dataTablesParameters.length;
         this.appSvc
-          .post(AppServiceType.LIST_OUTLET, dataTablesParameters)
+          .post(AppServiceType.MASTER_OUTLET, dataTablesParameters)
           .subscribe((resp: any) => {
             const mappedData = mapData(resp);
             this.page.recordsTotal = resp.recordsTotal;
@@ -191,7 +191,7 @@ export class OutletComponent implements AfterContentInit, OnInit {
       const params = {
         region_code: this.selectedRegion
       }
-      this.appSvc.post(AppServiceType.LIST_AREA, params).subscribe(response => {
+      this.appSvc.post(AppServiceType.MASTER_AREA, params).subscribe(response => {
         this.areas = response?.data || [];
       });
     }

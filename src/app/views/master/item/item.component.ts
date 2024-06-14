@@ -46,7 +46,7 @@ export class ItemComponent {
     const params: any = {
       outletCode: '0208',
     };
-    this.appSvc.post(AppServiceType.LIST_ITEM, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
+    this.appSvc.post(AppServiceType.MASTER_ITEM, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
       this.dataItems = response?.data || [];
     });
   }

@@ -45,7 +45,7 @@ export class GroupItemComponent implements OnInit {
     const params: any = {
       status: 'A',
     };
-    this.appSvc.post(AppServiceType.LIST_GROUP_ITEM, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
+    this.appSvc.post(AppServiceType.MASTER_GROUP_ITEM, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
       this.dataItems = response?.data || [];
     });
   }
