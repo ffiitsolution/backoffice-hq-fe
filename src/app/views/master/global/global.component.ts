@@ -97,9 +97,11 @@ export class GlobalComponent implements OnInit {
       switch (action) {
         case ACTION.EDIT:
           this.formStatus = FORM_STATUS.UPDATE;
+          const { cond, code, description, value, status } = data;
+          this.createUpdateForm.patchValue({ cond, code, description, value, status });
           break;
-        case ACTION.DELETE:
-          this.formStatus = FORM_STATUS.DELETE;
+        case ACTION.INACTIVE:
+          this.formStatus = FORM_STATUS.INACTIVE;
           break;
       }
       const openModalButton = document.getElementById("openModalButton");
@@ -153,12 +155,26 @@ export class GlobalComponent implements OnInit {
             `;
           },
         },
+        {
+          data: 'dtIndex',
+          title: 'ACTIONS',
+          orderable: false,
+          searchable: false,
+          render: (data: any, type: any, row: any) => {
+            return `
+              <div class="button-action">
+                <button class="action-edit"><i class="fa fa-pencil"></i> Edit</button>
+                <button class="action-inactive"><i class="fa fa-power-off"></i> Inactive</button>
+              </div>
+            `;
+          },
+        }
       ],
       searchDelay: 1500,
       order: [[1, 'asc']],
       rowCallback: (row: Node, data: any, index: number) => {
         $('.action-edit', row).on('click', () => handleButtonClick(ACTION.EDIT, data));
-        $('.action-delete', row).on('click', () => handleButtonClick(ACTION.DELETE, data));
+        $('.action-inactive', row).on('click', () => handleButtonClick(ACTION.INACTIVE, data));
         return row;
       },
     };

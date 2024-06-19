@@ -51,6 +51,7 @@
         </c-card>
     </c-col>
 </c-row>
+<button hidden [cModalToggle]="createOrUpdateForm.id" id="openModalButton"></button>
 <c-modal #createOrUpdateForm alignment="center" backdrop="static" id="createOrUpdateForm" size="lg">
     <c-modal-header>
         <h5 cModalTitle>{{ getModalTitle() }}</h5>

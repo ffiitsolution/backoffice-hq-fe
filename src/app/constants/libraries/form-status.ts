@@ -1,5 +1,6 @@
 export enum FORM_STATUS {
     CREATE = 'CREATE',
     UPDATE = 'UPDATE',
-    DELETE = 'DELETE'
+    DELETE = 'DELETE',
+    INACTIVE = 'INACTIVE'
 }
