@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService, AppServiceType } from '../../../services/app.service'
+import { AppService } from '../../../services/app.service'
 import { finalize } from 'rxjs';
 import { FORM_STATUS } from '../../../constants/libraries/form-status';
 
@@ -46,9 +46,9 @@ export class PriceComponent implements OnInit {
     const params: any = {
       outletCode: '0208',
     };
-    this.appSvc.post(AppServiceType.MASTER_ITEM_PRICE, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
-      this.dataItems = response?.data || [];
-    });
+  //   this.appSvc.post(AppServiceType.MASTER_ITEM_PRICE, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
+  //     this.dataItems = response?.data || [];
+  //   });
   }
 
   onCreateClicked() {

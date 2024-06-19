@@ -579,3 +579,24 @@ input[type=radio] {
 .modal-footer {
   justify-content: center;
 }
+
+.badge-status {
+  background: #808080;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+  padding: 5px 9px;
+  width: 100%;
+  max-width: 100px;
+  border-radius: 40px;
+
+  &__A {
+      background: #2EB85C !important;
+  }
+}
+
+.error-message {
+  color: #FF0000;
+  font-size: 13px;
+}

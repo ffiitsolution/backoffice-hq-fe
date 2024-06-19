@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService, AppServiceType } from '../../../services/app.service'
+import { AppService } from '../../../services/app.service'
 import { Subject } from 'rxjs';
 import { FORM_STATUS } from '../../../constants/libraries/form-status';
 import { HttpClient } from '@angular/common/http';
@@ -72,12 +72,7 @@ export class OutletComponent implements AfterContentInit, OnInit {
   }
 
   initFilter(): void {
-    this.appSvc.post(AppServiceType.MASTER_OUTLET_TYPE, {}).subscribe(response => {
-      this.outletTypes = response?.data || [];
-    });
-    this.appSvc.post(AppServiceType.MASTER_REGION, {}).subscribe(response => {
-      this.regions = response?.data || [];
-    });
+    
   }
 
   initTable(): void {
@@ -121,18 +116,18 @@ export class OutletComponent implements AfterContentInit, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         this.page.start = dataTablesParameters.start;
         this.page.length = dataTablesParameters.length;
-        this.appSvc
-          .post(AppServiceType.MASTER_OUTLET, dataTablesParameters)
-          .subscribe((resp: any) => {
-            const mappedData = mapData(resp);
-            this.page.recordsTotal = resp.recordsTotal;
-            this.page.recordsFiltered = resp.recordsFiltered;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: mappedData,
-            });
-          });
+        // this.appSvc
+        //   .post(AppServiceType.MASTER_OUTLET, dataTablesParameters)
+        //   .subscribe((resp: any) => {
+        //     const mappedData = mapData(resp);
+        //     this.page.recordsTotal = resp.recordsTotal;
+        //     this.page.recordsFiltered = resp.recordsFiltered;
+        //     callback({
+        //       recordsTotal: resp.recordsTotal,
+        //       recordsFiltered: resp.recordsFiltered,
+        //       data: mappedData,
+        //     });
+        //   });
       },
       columns: [
         { data: 'dtIndex', title: '#', orderable: false, searchable: false },
@@ -191,9 +186,9 @@ export class OutletComponent implements AfterContentInit, OnInit {
       const params = {
         region_code: this.selectedRegion
       }
-      this.appSvc.post(AppServiceType.MASTER_AREA, params).subscribe(response => {
-        this.areas = response?.data || [];
-      });
+      // this.appSvc.post(AppServiceType.MASTER_AREA, params).subscribe(response => {
+      //   this.areas = response?.data || [];
+      // });
     }
   }
 

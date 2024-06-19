@@ -56,15 +56,15 @@
         <h5 cModalTitle>{{ getModalTitle() }}</h5>
         <button [cModalToggle]="createOrUpdateForm.id" cButtonClose (click)="onCancelClicked()"></button>
     </c-modal-header>
-    <form [formGroup]="CreateUpdateForm" (ngSubmit)="onSubmitForm()">
+    <form [formGroup]="createUpdateForm" (ngSubmit)="onSubmitForm()">
         <c-modal-body>
             <c-row>
                 <c-col md="6">
                     <div class="mb-3">
                         <label cLabel>Condition</label>
-                        <ngx-select [items]="conditions" optionValueField="code" optionTextField="name" formControlName="cond"></ngx-select>
-                        <span
-                            *ngIf="CreateUpdateForm.get('cond')!.invalid && CreateUpdateForm.get('cond')!.touched">Wajib
+                        <input cFormControl formControlName="cond" />
+                        <span class="error-message"
+                            *ngIf="createUpdateForm.get('cond')!.invalid && createUpdateForm.get('cond')!.touched">Wajib
                             diisi</span>
                     </div>
                 </c-col>
@@ -72,8 +72,8 @@
                     <div class="mb-3">
                         <label cLabel>Code</label>
                         <input cFormControl formControlName="code" />
-                        <span
-                            *ngIf="CreateUpdateForm.get('code')!.invalid && CreateUpdateForm.get('code')!.touched">Wajib
+                        <span class="error-message"
+                            *ngIf="createUpdateForm.get('code')!.invalid && createUpdateForm.get('code')!.touched">Wajib
                             diisi</span>
                     </div>
                 </c-col>
@@ -81,8 +81,8 @@
                     <div class="mb-3">
                         <label cLabel>Description</label>
                         <textarea cFormControl rows="5" formControlName="description"></textarea>
-                        <span
-                            *ngIf="CreateUpdateForm.get('description')!.invalid && CreateUpdateForm.get('description')!.touched">Wajib
+                        <span class="error-message"
+                            *ngIf="createUpdateForm.get('description')!.invalid && createUpdateForm.get('description')!.touched">Wajib
                             diisi</span>
                     </div>
                 </c-col>
@@ -90,8 +90,8 @@
                     <div class="mb-3">
                         <label cLabel>Value</label>
                         <input cFormControl formControlName="value" />
-                        <span
-                            *ngIf="CreateUpdateForm.get('value')!.invalid && CreateUpdateForm.get('value')!.touched">Wajib
+                        <span class="error-message"
+                            *ngIf="createUpdateForm.get('value')!.invalid && createUpdateForm.get('value')!.touched">Wajib
                             diisi</span>
                     </div>
                     <div class="mb-3">
@@ -99,8 +99,8 @@
                         <ngx-select [items]="status"
                             optionValueField="code" optionTextField="name"
                             formControlName="status"></ngx-select>
-                        <span
-                            *ngIf="CreateUpdateForm.get('status')!.invalid && CreateUpdateForm.get('status')!.touched">Wajib
+                        <span class="error-message"
+                            *ngIf="createUpdateForm.get('status')!.invalid && createUpdateForm.get('status')!.touched">Wajib
                             diisi</span>
                     </div>
                 </c-col>

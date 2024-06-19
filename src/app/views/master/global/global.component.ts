@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService, AppServiceType } from '../../../services/app.service'
+import { AppService } from '../../../services/app.service'
 import { Subject, finalize } from 'rxjs';
 import { FORM_STATUS } from '../../../constants/libraries/form-status';
 import { Page } from 'src/app/models/page';
 import { ACTION } from 'src/app/constants/libraries/action';
 import { DataTableDirective } from 'angular-datatables';
+import { ToasterService } from '@coreui/angular';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-global',
   templateUrl: './global.component.html',
@@ -18,7 +20,7 @@ export class GlobalComponent implements OnInit {
   visibleFilter: boolean = false;
   loading: boolean = false;
   dataItems: any[] = [];
-  CreateUpdateForm: FormGroup;
+  createUpdateForm: FormGroup;
   formStatus: string;
   
   conditions: any[] = [];
@@ -45,7 +47,8 @@ export class GlobalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private appSvc: AppService
+    private appSvc: AppService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +62,7 @@ export class GlobalComponent implements OnInit {
   }
 
   initForm(): void {
-    this.CreateUpdateForm = this.formBuilder.group({
+    this.createUpdateForm = this.formBuilder.group({
       cond: ['', Validators.required],
       code: ['', Validators.required],
       description: ['', Validators.required],
@@ -69,7 +72,7 @@ export class GlobalComponent implements OnInit {
   }
 
   initFilter(): void {
-    this.appSvc.post(AppServiceType.MASTER_GLOBAL_CONDITION, {}).subscribe(response => {
+    this.appSvc.listGlobalCondition().subscribe(response => {
       this.conditions = (response?.data || []).map((x: any) => {
         return {
           code: x.cond,
@@ -118,7 +121,7 @@ export class GlobalComponent implements OnInit {
         this.page.length = dataTablesParameters.length;
         dataTablesParameters['status'] = this.selectedStatus;
         this.appSvc
-          .post(AppServiceType.MASTER_GLOBAL, dataTablesParameters, 'dt')
+          .listGlobal(dataTablesParameters)
           .subscribe((resp: any) => {
             const mappedData = mapData(resp);
             this.page.recordsTotal = resp.recordsTotal;
@@ -136,7 +139,20 @@ export class GlobalComponent implements OnInit {
         { data: 'code', title: 'CODE', orderable: true, searchable: true },
         { data: 'description', title: 'DESCRIPTION', orderable: true, searchable: true },
         { data: 'value', title: 'VALUE', orderable: true, searchable: true },
-        { data: 'status', title: 'STATUS', orderable: true, searchable: true },
+        {
+          data: 'status',
+          title: 'STATUS',
+          orderable: true,
+          searchable: true,
+          render: (data: any, type: any, row: any) => {
+            const statusText = data === 'I' ? 'Inactive' : 'Active';
+            return `
+              <div class="badge-status badge-status__${data}">
+                  ${statusText}
+              </div>
+            `;
+          },
+        },
       ],
       searchDelay: 1500,
       order: [[1, 'asc']],
@@ -161,7 +177,7 @@ export class GlobalComponent implements OnInit {
 
   onEditClicked(value: any) {
     this.formStatus = FORM_STATUS.UPDATE;
-    this.CreateUpdateForm.patchValue(value);
+    this.createUpdateForm.patchValue(value);
     console.log(value);
   }
 
@@ -181,16 +197,31 @@ export class GlobalComponent implements OnInit {
   }
 
   onSubmitForm() {
-    const valid = this.CreateUpdateForm.valid;
+    const valid = this.createUpdateForm.valid;
     if (valid) {
-      const body = this.CreateUpdateForm.getRawValue();
-      // do create data;
+      const body = this.createUpdateForm.getRawValue();
+      this.appSvc.insertGlobal(body).subscribe(response => {
+        if (response?.success) {
+
+        } else {
+          this.toastr.error(response?.message, 'Maaf, Terjadi Kesalahan!');
+        }
+      });
     } else {
-      alert('Terdapat data yang belum valid');
+      this.markFormGroupTouched(this.createUpdateForm);
     }
   }
 
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
   onCancelClicked() {
-    this.CreateUpdateForm.reset();
+    this.createUpdateForm.reset();
   }
 }

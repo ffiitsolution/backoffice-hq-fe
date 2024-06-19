@@ -38,6 +38,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { StatusComponent } from './status/status.component';
 import { DataTablesModule } from 'angular-datatables';
 import { BtnActionComponent } from './btn-action/btn-action.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { BtnActionComponent } from './btn-action/btn-action.component';
     ModalModule,
     AlertModule,
     NgxSelectModule,
-    DataTablesModule
+    DataTablesModule,
+    ToastrModule.forRoot(),
   ],
   exports:[
     CommonModule,
@@ -116,7 +118,8 @@ import { BtnActionComponent } from './btn-action/btn-action.component';
     NgxSelectModule,
     StatusComponent,
     DataTablesModule,
-    BtnActionComponent
+    BtnActionComponent,
+    ToastrModule,
   ]
 })
 export class CoreModule { }

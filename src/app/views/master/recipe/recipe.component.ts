@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService, AppServiceType } from '../../../services/app.service'
+import { AppService } from '../../../services/app.service'
 import { Subject, finalize } from 'rxjs';
 import { FORM_STATUS } from '../../../constants/libraries/form-status';
 
@@ -43,9 +43,9 @@ export class RecipeComponent implements OnInit {
     this.loading = true;
     this.dataItems = [];
     const params: any = { };
-    this.appSvc.post(AppServiceType.MASTER_RECIPE, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
-      this.dataItems = response?.data || [];
-    });
+    // this.appSvc.post(AppServiceType.MASTER_RECIPE, params).pipe(finalize(() => this.loading = false)).subscribe(response => {
+    //   this.dataItems = response?.data || [];
+    // });
   }
 
   onCreateClicked() {
