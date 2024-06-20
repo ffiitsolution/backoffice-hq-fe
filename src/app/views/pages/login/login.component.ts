@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit {
       const success = response?.success || false;
       this.errorMessage = success ? '' : response?.message;
       if (success) {
-        const user = response?.item[0];
+        const user = response?.data?.user;
         this.authSvc.setUser(user);
+        localStorage.setItem('hq_token', response?.data?.token);
         this.router.navigate(['/home']);
       }
     });

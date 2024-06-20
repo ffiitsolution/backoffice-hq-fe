@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AppConfig } from '../config/app.config';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AppService } from './app.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,27 +13,28 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private appService: AppService
   ) { }
-  
+
   doLogin(username: any, password: any): Observable<any> {
-    return this.httpClient.post(this.BASE_URL + '/login', {
-      userName: username,
-      password: password,
-      outletCode: '0208'
+    return this.httpClient.post(this.BASE_URL + '/auth/login', {
+      staffCode: username,
+      password: password
     });
   }
 
   doLogout() {
     localStorage.clear();
+    this.appService.setToken(null);
   }
 
   getUser() {
-    return JSON.parse(localStorage.getItem('user') || '{}');
+    return JSON.parse(localStorage.getItem('hq_user') || '{}');
   }
 
   setUser(user: any) {
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('hq_user', JSON.stringify(user));
   }
 
   isLoggednIn() {

@@ -22,7 +22,7 @@ export class GlobalComponent implements OnInit {
   dataItems: any[] = [];
   createUpdateForm: FormGroup;
   formStatus: string;
-  
+
   conditions: any[] = [];
   status: any[] = [
     {
@@ -72,7 +72,7 @@ export class GlobalComponent implements OnInit {
   }
 
   initFilter(): void {
-    this.appSvc.listGlobalCondition().subscribe(response => {
+    this.appSvc.doPost('/global/param/condition').subscribe(response => {
       this.conditions = (response?.data || []).map((x: any) => {
         return {
           code: x.cond,
@@ -121,7 +121,8 @@ export class GlobalComponent implements OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         this.page.start = dataTablesParameters.start;
         this.page.length = dataTablesParameters.length;
-        dataTablesParameters['status'] = this.selectedStatus;
+        dataTablesParameters['status'] = this.selectedStatus ?? '';
+        dataTablesParameters['cond'] = this.selectedCondition ?? '';
         this.appSvc
           .listGlobal(dataTablesParameters)
           .subscribe((resp: any) => {
