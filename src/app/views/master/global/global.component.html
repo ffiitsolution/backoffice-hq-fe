@@ -53,13 +53,13 @@
 </c-row>
 <button hidden [cModalToggle]="createOrUpdateForm.id" id="openModalButton"></button>
 <c-modal #createOrUpdateForm alignment="center" backdrop="static" id="createOrUpdateForm" size="lg">
-    <c-modal-header>
+    <c-modal-header *ngIf="['UPDATE', 'CREATE'].includes(formStatus)">
         <h5 cModalTitle>{{ getModalTitle() }}</h5>
         <button [cModalToggle]="createOrUpdateForm.id" cButtonClose (click)="onCancelClicked()"></button>
     </c-modal-header>
     <form [formGroup]="createUpdateForm" (ngSubmit)="onSubmitForm()">
         <c-modal-body>
-            <c-row>
+            <c-row *ngIf="['UPDATE', 'CREATE'].includes(formStatus); else activeInactive">
                 <c-col md="6">
                     <div class="mb-3">
                         <label cLabel>Condition</label>
@@ -106,6 +106,14 @@
                     </div>
                 </c-col>
             </c-row>
+            <ng-template #activeInactive>
+                <div class="d-flex align-items-center" style="min-height: 200px; width: 100%;">
+                    <div class="text-center" style="width: 100%;">
+                        <h5 class="fw-bold">{{ (formStatus == 'ACTIVATE' ? 'Activate ' : 'Inactive ') + selectedRowData?.code }}</h5>
+                        <p>Apakah Anda yakin akan melakukan {{ (formStatus == 'ACTIVATE' ? 'activate ' : 'inactive ') }} pada item ini?</p>
+                    </div>
+                </div>
+            </ng-template>
         </c-modal-body>
         <c-modal-footer>
             <button [cModalToggle]="createOrUpdateForm.id" cButton color="secondary" (click)="onCancelClicked()">

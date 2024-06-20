@@ -54,4 +54,8 @@ export class AppService {
       headers: this.headers(),
     });
   }
+  updateGlobal(body: any = {}): Observable<any> {
+    return this.httpClient.post(this.BASE_URL + '/global/update', body);
+  }
+
 }

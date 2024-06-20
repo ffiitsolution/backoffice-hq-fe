@@ -19,7 +19,6 @@ export class GlobalComponent implements OnInit {
 
   visibleFilter: boolean = false;
   loading: boolean = false;
-  dataItems: any[] = [];
   createUpdateForm: FormGroup;
   formStatus: string;
 
@@ -94,16 +93,22 @@ export class GlobalComponent implements OnInit {
     };
 
     const handleButtonClick = (action: string, data: any) => {
+      this.selectedRowData = data;
+      let { cond, code, description, value, status } = data;
       switch (action) {
         case ACTION.EDIT:
           this.formStatus = FORM_STATUS.UPDATE;
-          const { cond, code, description, value, status } = data;
-          this.createUpdateForm.patchValue({ cond, code, description, value, status });
           break;
         case ACTION.INACTIVE:
           this.formStatus = FORM_STATUS.INACTIVE;
+          status = 'I';
+          break;
+        case ACTION.ACTIVATE:
+          status = 'A';
+          this.formStatus = FORM_STATUS.ACTIVATE;
           break;
       }
+      this.createUpdateForm.patchValue({ cond, code, description, value, status });
       const openModalButton = document.getElementById("openModalButton");
       if (openModalButton instanceof HTMLButtonElement) {
         openModalButton.click();
@@ -157,17 +162,25 @@ export class GlobalComponent implements OnInit {
           },
         },
         {
-          data: 'dtIndex',
+          data: 'status',
           title: 'ACTIONS',
           orderable: false,
           searchable: false,
           render: (data: any, type: any, row: any) => {
-            return `
+            let actionBtn =  `
               <div class="button-action">
                 <button class="action-edit"><i class="fa fa-pencil"></i> Edit</button>
-                <button class="action-inactive"><i class="fa fa-power-off"></i> Inactive</button>
-              </div>
             `;
+            if (data == 'I') {
+              actionBtn += `
+                <button class="action-activate"><i class="fa fa-power-off"></i> Activate</button>
+              </div>`
+            } else {
+              actionBtn += `
+                <button class="action-inactive"><i class="fa fa-power-off"></i> Inactive</button>
+              </div>`
+            }
+            return actionBtn;
           },
         }
       ],
@@ -176,6 +189,7 @@ export class GlobalComponent implements OnInit {
       rowCallback: (row: Node, data: any, index: number) => {
         $('.action-edit', row).on('click', () => handleButtonClick(ACTION.EDIT, data));
         $('.action-inactive', row).on('click', () => handleButtonClick(ACTION.INACTIVE, data));
+        $('.action-activate', row).on('click', () => handleButtonClick(ACTION.ACTIVATE, data));
         return row;
       },
     };
@@ -195,7 +209,6 @@ export class GlobalComponent implements OnInit {
   onEditClicked(value: any) {
     this.formStatus = FORM_STATUS.UPDATE;
     this.createUpdateForm.patchValue(value);
-    console.log(value);
   }
 
   onDeleteClicked(value: any) {
@@ -217,7 +230,8 @@ export class GlobalComponent implements OnInit {
     const valid = this.createUpdateForm.valid;
     if (valid) {
       const body = this.createUpdateForm.getRawValue();
-      this.appSvc.insertGlobal(body).subscribe(response => {
+      const endpoint = this.formStatus == FORM_STATUS.CREATE ? this.appSvc.insertGlobal(body) : this.appSvc.updateGlobal(body);
+      endpoint.subscribe(response => {
         if (response?.success) {
 
         } else {

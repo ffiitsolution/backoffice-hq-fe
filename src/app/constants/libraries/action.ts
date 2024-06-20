@@ -3,5 +3,6 @@ export enum ACTION {
     ADD = 'ADD',
     EDIT = 'EDIT',
     DELETE = 'DELETE',
-    INACTIVE = 'INACTIVE'
+    INACTIVE = 'INACTIVE',
+    ACTIVATE = 'ACTIVATE',
 }
