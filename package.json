@@ -1,13 +1,13 @@
 {
-  "name": "BackOffice",
-  "version": "1.0524.28.85b",
+  "name": "backoffice_hq",
+  "version": "1.0624.19.1a",
   "config": {
     "coreui_library_short_version": "4.3",
     "coreui_library_docs_url": "https://coreui.io/angular/docs/"
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4321",
+    "start": "ng serve --port 4343 -o",
     "build": "ng build --baseHref=/backoffice/ --prod --aot --buildOptimizer --optimization && npm run post-build",
     "test": "ng test",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",

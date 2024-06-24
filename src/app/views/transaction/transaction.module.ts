@@ -5,6 +5,8 @@ import { routes } from './routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SendMasterDataComponent } from './send-master-data/send-master-data.component';
 import { ReceiveTransactionDataComponent } from './receive-transaction-data/receive-transaction-data.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { ReceiveTransactionDataComponent } from './receive-transaction-data/rece
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ReactiveFormsModule,
+    CoreModule
   ]
 })
 export class TransactionModule { }

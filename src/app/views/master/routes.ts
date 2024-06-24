@@ -16,6 +16,7 @@ import { PriceComponent } from './price/price.component';
 import { MenuComponent } from './menu/menu.component';
 import { OutletComponent } from './outlet/outlet.component';
 
+
 export const routes: Routes = [
   {
     path: 'dashboard',

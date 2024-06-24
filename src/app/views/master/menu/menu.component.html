@@ -1,1 +1,140 @@
-<p>menu works!</p>
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>{{ title }}</strong>
+      </c-card-header>
+      <c-card-body>
+        <c-row>
+          <c-col [cCol]="8">
+            <div *ngIf="loading; else content">
+              <app-loader></app-loader>
+            </div>
+            <ng-template #content>
+              <button cButton color="info" variant="outline" (click)="visibleFilter = !visibleFilter">
+                <i class="fa fa-filter"></i> Filter
+              </button>
+              <button cButton color="success" variant="outline" [cModalToggle]="createOrUpdateForm.id"
+                (click)="onCreateClicked()">Create New
+                Data</button>
+              <c-row class="mt-3" [visible]="visibleFilter" cCollapse>
+                <c-col>
+                  <c-card class="mb-3">
+                    <c-card-body class="bg">
+                      <c-row style="align-items: end;">
+                        <c-col xs="6">
+                          <label class="col-form-label">Outlet</label>
+                          <ngx-select [items]="outlets" [(ngModel)]="selectedOutletCode" optionValueField="code"
+                            optionTextField="name" (select)="onFilterChange()"></ngx-select>
+                        </c-col>
+                        <c-col xs="6">
+                          <label class="col-form-label">Status</label>
+                          <ngx-select [items]="status" [(ngModel)]="selectedStatus" optionValueField="code"
+                            optionTextField="name" (select)="onFilterChange()"></ngx-select>
+                        </c-col>
+                      </c-row>
+                    </c-card-body>
+                  </c-card>
+                </c-col>
+              </c-row>
+              <div class="mt-3">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" (page.dt)="dtPageChange($event)"
+                  class="row-border hover"></table>
+              </div>
+            </ng-template>
+          </c-col>
+          <c-col [cCol]="4">
+            <c-card class="mb-2">
+              <c-card-header>ORDER TYPE</c-card-header>
+              <div *ngIf="loadingDetailOrderType">
+                <app-loader></app-loader>
+              </div>
+              <ul cListGroup [flush]="true" *ngIf="!loadingDetailOrderType && listOrderType.length === 0">
+                <li cListGroupItem>No data</li>
+              </ul>
+              <ul cListGroup [flush]="true" *ngIf="!loadingDetailOrderType && listOrderType.length > 0">
+                <li cListGroupItem *ngFor="let data of listOrderType; let i = index;" (click)="selectOrderType($event,data)">{{ data.description }}</li>
+              </ul>
+            </c-card>
+            <c-card>
+              <c-card-header>OUTLET LIMIT</c-card-header>
+              <div *ngIf="loadingDetailOutletLimit">
+                <app-loader></app-loader>
+              </div>
+              <ul cListGroup [flush]="true" *ngIf="!loadingDetailOutletLimit && listOutletLimit.length === 0">
+                <li cListGroupItem>No data</li>
+              </ul>
+              <ul cListGroup [flush]="true" *ngIf="!loadingDetailOutletLimit && listOutletLimit.length > 0">
+                <li cListGroupItem *ngFor="let data of listOutletLimit; let i = index;">{{ data.outletCode }} - {{
+                  data.outletName }}</li>
+              </ul>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+<button hidden [cModalToggle]="createOrUpdateForm.id" id="openModalButton"></button>
+<c-modal #createOrUpdateForm alignment="center" backdrop="static" id="createOrUpdateForm" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>{{ getModalTitle() }}</h5>
+    <button [cModalToggle]="createOrUpdateForm.id" cButtonClose (click)="onCancelClicked()"></button>
+  </c-modal-header>
+  <form [formGroup]="createUpdateForm" (ngSubmit)="onSubmitForm()">
+    <c-modal-body>
+      <c-row>
+        <c-col md="6">
+          <div class="mb-3">
+            <label cLabel>Condition</label>
+            <input cFormControl formControlName="cond" />
+            <span class="error-message"
+              *ngIf="createUpdateForm.get('cond')!.invalid && createUpdateForm.get('cond')!.touched">Wajib
+              diisi</span>
+          </div>
+        </c-col>
+        <c-col md="6">
+          <div class="mb-3">
+            <label cLabel>Code</label>
+            <input cFormControl formControlName="code" />
+            <span class="error-message"
+              *ngIf="createUpdateForm.get('code')!.invalid && createUpdateForm.get('code')!.touched">Wajib
+              diisi</span>
+          </div>
+        </c-col>
+        <c-col md="6">
+          <div class="mb-3">
+            <label cLabel>Description</label>
+            <textarea cFormControl rows="5" formControlName="description"></textarea>
+            <span class="error-message"
+              *ngIf="createUpdateForm.get('description')!.invalid && createUpdateForm.get('description')!.touched">Wajib
+              diisi</span>
+          </div>
+        </c-col>
+        <c-col md="6">
+          <div class="mb-3">
+            <label cLabel>Value</label>
+            <input cFormControl formControlName="value" />
+            <span class="error-message"
+              *ngIf="createUpdateForm.get('value')!.invalid && createUpdateForm.get('value')!.touched">Wajib
+              diisi</span>
+          </div>
+          <div class="mb-3">
+            <label cLabel>Status</label>
+            <ngx-select [items]="status" optionValueField="code" optionTextField="name"
+              formControlName="status"></ngx-select>
+            <span class="error-message"
+              *ngIf="createUpdateForm.get('status')!.invalid && createUpdateForm.get('status')!.touched">Wajib
+              diisi</span>
+          </div>
+        </c-col>
+      </c-row>
+    </c-modal-body>
+    <c-modal-footer>
+      <button [cModalToggle]="createOrUpdateForm.id" cButton color="secondary" (click)="onCancelClicked()">
+        Cancel
+      </button>
+      <button type="submit" cButton color="success">Submit</button>
+    </c-modal-footer>
+  </form>
+</c-modal>

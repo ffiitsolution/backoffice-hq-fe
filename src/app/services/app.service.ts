@@ -18,7 +18,6 @@ export class AppService {
   }
 
   setToken(token: string | null) {
-    // this.tokenSubject.next(token);
     if (token) {
       localStorage.setItem('hq_token', token);
     } else {

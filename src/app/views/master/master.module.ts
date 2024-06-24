@@ -48,7 +48,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CoreModule
   ],
   providers: [
-    
+
   ]
 })
 export class MasterModule { }
