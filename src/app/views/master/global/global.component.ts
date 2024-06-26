@@ -25,6 +25,10 @@ export class GlobalComponent implements OnInit {
   conditions: any[] = [];
   status: any[] = [
     {
+      code: '',
+      name: 'All'
+    },
+    {
       code: 'A',
       name: 'Active'
     },
@@ -153,7 +157,7 @@ export class GlobalComponent implements OnInit {
           orderable: true,
           searchable: true,
           render: (data: any, type: any, row: any) => {
-            const statusText = data === 'I' ? 'Inactive' : 'Active';
+            const statusText = data === 'A' ? 'Active' :  (data === 'I' ? 'Inactive' : '-');
             return `
               <div class="badge-status badge-status__${data}">
                   ${statusText}

@@ -29,6 +29,10 @@ export class OutletComponent implements AfterContentInit, OnInit {
   areas: any[] = [];
   status: any[] = [
     {
+      code: '',
+      name: 'All'
+    },
+    {
       code: 'A',
       name: 'Active'
     },
@@ -40,8 +44,12 @@ export class OutletComponent implements AfterContentInit, OnInit {
   selectedOutletType: any = '';
   selectedRegion: any = '';
   selectedArea: any = '';
+  selectedStatus: any = '';
 
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   selectedRowData: any;
   dtColumns: any = [];
   page = new Page();
@@ -72,7 +80,31 @@ export class OutletComponent implements AfterContentInit, OnInit {
   }
 
   initFilter(): void {
-    
+    this.appSvc.doPost('/outlet/param').subscribe(response => {
+      let data = response?.data;
+      const all = {
+        code: '',
+        description: 'All'
+      };
+      this.outletTypes = ([all, ...(data?.listType || [])]).map((x: any) => {
+        return {
+          code: x.code,
+          name: x.description
+        }
+      });
+      this.regions = ([all, ...(data?.listRegion || [])]).map((x: any) => {
+        return {
+          code: x.code,
+          name: x.description === 'All' ? x.description : x.code + ' - ' + x.description
+        }
+      });
+      this.areas = ([all, ...(data?.listArea || [])]).map((x: any) => {
+        return {
+          code: x.code,
+          name: x.description === 'All' ? x.description : x.code + ' - ' + x.description
+        }
+      });
+    });
   }
 
   initTable(): void {
@@ -116,18 +148,22 @@ export class OutletComponent implements AfterContentInit, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         this.page.start = dataTablesParameters.start;
         this.page.length = dataTablesParameters.length;
-        // this.appSvc
-        //   .post(AppServiceType.MASTER_OUTLET, dataTablesParameters)
-        //   .subscribe((resp: any) => {
-        //     const mappedData = mapData(resp);
-        //     this.page.recordsTotal = resp.recordsTotal;
-        //     this.page.recordsFiltered = resp.recordsFiltered;
-        //     callback({
-        //       recordsTotal: resp.recordsTotal,
-        //       recordsFiltered: resp.recordsFiltered,
-        //       data: mappedData,
-        //     });
-        //   });
+        dataTablesParameters['type'] = this.selectedOutletType;
+        dataTablesParameters['regionCode'] = this.selectedRegion;
+        dataTablesParameters['areaCode'] = this.selectedArea;
+        dataTablesParameters['status'] = this.selectedStatus;
+        this.appSvc
+          .doPost('/outlet/dt', dataTablesParameters)
+          .subscribe((resp: any) => {
+            const mappedData = mapData(resp);
+            this.page.recordsTotal = resp.recordsTotal;
+            this.page.recordsFiltered = resp.recordsFiltered;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsFiltered,
+              data: mappedData,
+            });
+          });
       },
       columns: [
         { data: 'dtIndex', title: '#', orderable: false, searchable: false },
@@ -139,7 +175,20 @@ export class OutletComponent implements AfterContentInit, OnInit {
         { data: 'outletName', title: 'OUTLET NAME', orderable: true, searchable: true },
         { data: 'initialOutlet', title: 'INITIAL', orderable: true, searchable: true },
         { data: 'type', title: 'TYPE', orderable: true, searchable: true },
-        { data: 'status', title: 'STATUS', orderable: true, searchable: true },
+        {
+          data: 'status',
+          title: 'STATUS',
+          orderable: true,
+          searchable: true,
+          render: (data: any, type: any, row: any) => {
+            const statusText = data === 'A' ? 'Active' :  (data === 'I' ? 'Inactive' : '-');
+            return `
+              <div class="badge-status badge-status__${data}">
+                  ${statusText}
+              </div>
+            `;
+          },
+        },
         {
           data: 'dtIndex',
           title: 'ACTIONS',
@@ -149,14 +198,13 @@ export class OutletComponent implements AfterContentInit, OnInit {
             return `
               <div class="button-action">
                 <button class="action-edit"><i class="fa fa-pencil"></i> Edit</button>
-                <button class="action-delete"><i class="fa fa-trash"></i> Delete</button>
               </div>
             `;
           },
         }
       ],
       searchDelay: 1500,
-      order: [[1, 'asc']],
+      order: [[7, 'asc'],[1, 'asc']],
       rowCallback: (row: Node, data: any, index: number) => {
         $('.action-edit', row).on('click', () => handleButtonClick(ACTION.EDIT, data));
         $('.action-delete', row).on('click', () => handleButtonClick(ACTION.DELETE, data));
@@ -180,16 +228,10 @@ export class OutletComponent implements AfterContentInit, OnInit {
 
   }
 
-  onFilterChange(type: any = undefined): void {
-    this.initTable();
-    if (type == 'region') {
-      const params = {
-        region_code: this.selectedRegion
-      }
-      // this.appSvc.post(AppServiceType.MASTER_AREA, params).subscribe(response => {
-      //   this.areas = response?.data || [];
-      // });
-    }
+  onFilterChange(): void {
+    this.dtElement.dtInstance.then(dtInstance => {
+      dtInstance.draw();
+    });
   }
 
   getModalTitle(): string {
