@@ -591,7 +591,7 @@ input[type=radio] {
   max-width: 100px;
   border-radius: 40px;
 
-  &__A {
+  &__A, &__Y {
       background: #2EB85C !important;
   }
 }
@@ -599,4 +599,8 @@ input[type=radio] {
 .error-message {
   color: #FF0000;
   font-size: 13px;
+}
+
+.swal-btn-width {
+  min-width: 80px;
 }

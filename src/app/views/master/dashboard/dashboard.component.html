@@ -1,12 +1,52 @@
 <c-row ngPreserveWhitespaces>
   <c-col xs="12">
-      <c-card class="mb-4">
-          <c-card-header>
-              <strong>{{ title }}</strong>
-          </c-card-header>
-          <c-card-body>
 
-          </c-card-body>
-      </c-card>
+    <c-card class="mb-4">
+      <c-card-header>
+        <c-row>
+          <c-col>
+            <strong>Master Dashboard</strong>
+          </c-col>
+          <c-col>
+            <input type="text" id="rangeDate" class="form-control" placeholder="Date Range" #dp="bsDaterangepicker"
+              [bsValue]="rangeDatePeriode" [(ngModel)]="rangeDatePeriode" [bsConfig]="dpConfig" bsDaterangepicker
+              (keypress)="false" (bsValueChange)="onChangePeriode($event)" autocomplete="off">
+          </c-col>
+        </c-row>
+      </c-card-header>
+      <c-card-body>
+        <div class="text-end">
+          <span class="ps-3"><i class="fa fa-check text-success"></i> : All updated</span>
+          <span class="ps-3"><i class="fa fa-times text-danger"></i> : Error occurred</span>
+          <span class="ps-3"><i class="fa fa-minus text-secondary"></i> : No update</span>
+        </div>
+        <div class="table-responsive">
+          <table *ngIf="transformedData?.dates?.length > 0" class="table table-sm table-bordered">
+            <thead>
+              <tr>
+                <th class="text-center">CODE</th>
+                <th class="ps-2">NAME</th>
+                <ng-container *ngFor="let date of transformedData.dates; let i = index;">
+                  <th [ngClass]="{'bg-light': i === indexToday}" class="text-center">{{ formatDateWithDayMonth(date) }}</th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let store of transformedData.tableData">
+                <td class="text-center">{{ store.code }}</td>
+                <td class="ps-2">{{ store.name }}</td>
+                <ng-container *ngFor="let status of store.statuses; let i = index;">
+                  <td [ngClass]="{'bg-light': i === indexToday, 'bg-danger': status === 'I'}" class="text-center">
+                    <i class="fa fa-check text-success" *ngIf="status === 'A'"></i>
+                    <i class="fa fa-times text-white" *ngIf="status === 'I'"></i>
+                    <i class="fa fa-minus text-secondary" *ngIf="status !== 'A' && status !== 'I'"></i>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </c-card-body>
+    </c-card>
   </c-col>
 </c-row>

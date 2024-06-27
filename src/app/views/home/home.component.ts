@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
+import { GlobalService } from 'src/app/services/global.service';
 import { ChartDataset, ChartOptions } from 'chart.js';
 import moment from 'moment';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -27,13 +28,12 @@ export class HomeComponent {
   };
   dataBill = this.dataSales;
 
-  constructor(private appSvc: AppService) {}
+  constructor(private appSvc: AppService, private g: GlobalService) {}
 
   ngOnInit(): void {
-    this.fromDate = moment().subtract(30, 'days');
+    this.fromDate = moment().startOf('month');
     this.toDate = moment();
-    this.rangeDatePeriode = [this.fromDate.format('YYYY-MM-DD'), this.toDate.format('YYYY-MM-DD')];
-    console.log(this.rangeDatePeriode);
+    this.rangeDatePeriode = [this.fromDate.toDate(), this.toDate.toDate()];
     this.fetchChartData();
   }
 
@@ -79,7 +79,7 @@ export class HomeComponent {
 
   formatDateWithDay(dateString: string): string {
     const day = moment(dateString).format('dddd');
-    return day.substring(0,3) + ' ' + dateString;
+    return day.substring(0, 3) + ' ' + dateString;
   }
 
   onChangePeriode(data: any) {

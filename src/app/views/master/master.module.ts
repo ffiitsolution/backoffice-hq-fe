@@ -20,6 +20,7 @@ import { ColorComponent } from './color/color.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { CoreModule } from '../../core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    BsDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),

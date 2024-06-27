@@ -1,1 +1,93 @@
-<p>send-master-data works!</p>
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>{{ title }}</strong>
+      </c-card-header>
+      <c-card-body>
+        <div *ngIf="loading; else content">
+          <app-loader></app-loader>
+        </div>
+        <ng-template #content>
+          <button cButton color="info" variant="outline" (click)="visibleFilter = !visibleFilter">
+            <i class="fa fa-filter"></i> Filter
+          </button>
+          <button cButton color="success" variant="outline" [cModalToggle]="createOrUpdateForm.id"
+            (click)="onCreateClicked()">Create New
+            Data</button>
+          <c-row class="mt-3" [visible]="visibleFilter" cCollapse>
+            <c-col>
+              <c-card class="mb-3">
+                <c-card-body class="bg">
+                  <c-row style="align-items: end;">
+                    <c-col xs="3">
+                      <label class="col-form-label">Date</label>
+                      <input type="text" id="rangeDate" class="form-control" placeholder="Date Range"
+                        #dp="bsDaterangepicker" [bsValue]="rangeDatePeriode" [(ngModel)]="rangeDatePeriode"
+                        [bsConfig]="dpConfig" bsDaterangepicker (keypress)="false"
+                        (bsValueChange)="onChangePeriode($event)" autocomplete="off">
+                    </c-col>
+                    <c-col xs="3">
+                      <label class="col-form-label">Status</label>
+                      <ngx-select [items]="status" [(ngModel)]="selectedStatus" optionValueField="code"
+                        optionTextField="name" (select)="onFilterChange()"></ngx-select>
+                    </c-col>
+                  </c-row>
+                </c-card-body>
+              </c-card>
+            </c-col>
+          </c-row>
+          <div class="mt-3">
+            <table datatable [dtOptions]="dtOptions" (page.dt)="dtPageChange($event)" class="row-border hover"></table>
+          </div>
+        </ng-template>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+<button id="openModalButton" hidden [cModalToggle]="createOrUpdateForm.id"></button>
+<c-modal #createOrUpdateForm alignment="center" [(visible)]="visibleCreateOrUpdateForm" backdrop="static" id="createOrUpdateForm" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>{{ getModalTitle() }}</h5>
+    <button [cModalToggle]="createOrUpdateForm.id" cButtonClose (click)="onCancelClicked()"></button>
+  </c-modal-header>
+  <form [formGroup]="createUpdateForm" (ngSubmit)="onSubmitForm()">
+    <c-modal-body>
+      <c-row>
+        <c-col md="6">
+          <div class="mb-3">
+            <label cLabel>Date Upd</label>
+            <input cFormControl type="date" min="{{today}}" formControlName="dateUpd" />
+            <span class="error-message"
+              *ngIf="createUpdateForm.get('dateUpd')!.invalid && createUpdateForm.get('dateUpd')!.touched">Wajib
+              diisi</span>
+          </div>
+        </c-col>
+        <c-col md="6">
+          <div class="mb-3">
+            <label cLabel>Total Update</label>
+            <input cFormControl formControlName="totalUpd" type="number" />
+            <span class="error-message"
+              *ngIf="createUpdateForm.get('totalUpd')!.invalid && createUpdateForm.get('totalUpd')!.touched">Wajib
+              diisi</span>
+          </div>
+        </c-col>
+        <c-col md="6">
+          <div class="mb-3">
+            <label cLabel>Remark</label>
+            <input cFormControl formControlName="remark" />
+            <span class="error-message"
+              *ngIf="createUpdateForm.get('remark')!.invalid && createUpdateForm.get('remark')!.touched">Wajib
+              diisi</span>
+          </div>
+        </c-col>
+      </c-row>
+    </c-modal-body>
+    <c-modal-footer>
+      <button [cModalToggle]="createOrUpdateForm.id" cButton color="secondary" (click)="onCancelClicked()">
+        Cancel
+      </button>
+      <button type="submit" cButton color="success">Submit</button>
+    </c-modal-footer>
+  </form>
+</c-modal>
