@@ -11,6 +11,7 @@ import {
   PerfectScrollbarModule,
 } from 'ngx-perfect-scrollbar';
 
+// Routing
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppConfig } from './config/app.config';
@@ -19,12 +20,18 @@ export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
 }
 
+// Core UI
+
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { CoreModule } from './core/core.module';
+
+// Component
 import { LoginComponent } from './views/pages/login/login.component';
 import { DefaultLayoutComponent } from './layout/default-layout/default-layout.component';
 import { DefaultFooterComponent } from './layout/default-layout/default-footer/default-footer.component';
 import { DefaultHeaderComponent } from './layout/default-layout/default-header/default-header.component';
-import { CoreModule } from './core/core.module';
+
+// Service
 import { IdleService } from './services/idle.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {

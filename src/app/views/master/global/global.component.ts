@@ -20,6 +20,8 @@ export class GlobalComponent implements OnInit {
   title: string = 'Master Global';
 
   visibleFilter: boolean = false;
+  visibleCreateOrUpdateForm: boolean = false;
+  isProcessing: boolean = false;
   loading: boolean = false;
   createUpdateForm: FormGroup;
   formStatus: string;
@@ -247,6 +249,7 @@ export class GlobalComponent implements OnInit {
   }
 
   onSubmitForm() {
+    this.isProcessing = true;
     const valid = this.createUpdateForm.valid;
     if (valid) {
       const body = this.createUpdateForm.getRawValue();
@@ -254,6 +257,8 @@ export class GlobalComponent implements OnInit {
       const endpoint = this.formStatus == FORM_STATUS.CREATE ? this.appSvc.insertGlobal(body) : this.appSvc.updateGlobal(body);
       endpoint.subscribe(response => {
         if (response?.success) {
+          this.isProcessing = false;
+          this.visibleCreateOrUpdateForm = false;
           if (this.formStatus == 'CREATE') {
             this.toastr.success('Pembuatan Data Master Global Berhasil', 'Berhasil!');
           } else if (this.formStatus == 'ACTIVATE') {
@@ -263,7 +268,10 @@ export class GlobalComponent implements OnInit {
           } else if (this.formStatus == 'UPDATE') {
             this.toastr.success('Update Data Master Global Berhasil', 'Berhasil!'); 
           }
+          this.onFilterChange();
         } else {
+          this.isProcessing = false;
+          this.visibleCreateOrUpdateForm = false;
           this.toastr.error(response?.message, 'Maaf, Terjadi Kesalahan!');
         }
       });

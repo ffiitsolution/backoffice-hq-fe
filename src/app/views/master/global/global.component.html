@@ -52,7 +52,7 @@
     </c-col>
 </c-row>
 <button hidden [cModalToggle]="createOrUpdateForm.id" id="openModalButton"></button>
-<c-modal #createOrUpdateForm alignment="center" backdrop="static" id="createOrUpdateForm" size="lg">
+<c-modal #createOrUpdateForm [(visible)]="visibleCreateOrUpdateForm" alignment="center" backdrop="static" id="createOrUpdateForm" size="lg">
     <c-modal-header *ngIf="['UPDATE', 'CREATE'].includes(formStatus)">
         <h5 cModalTitle>{{ getModalTitle() }}</h5>
         <button [cModalToggle]="createOrUpdateForm.id" cButtonClose (click)="onCancelClicked()"></button>
@@ -116,10 +116,19 @@
             </ng-template>
         </c-modal-body>
         <c-modal-footer>
-            <button [cModalToggle]="createOrUpdateForm.id" cButton color="secondary" (click)="onCancelClicked()">
+            <!-- <button [cModalToggle]="createOrUpdateForm.id" cButton color="secondary" (click)="onCancelClicked()">
                 Cancel
             </button>
-            <button type="submit" cButton color="success">Submit</button>
+            <button type="submit" [disabled]="isProcessing" cButton color="success">
+                <ng-container *ngIf="isProcessing; else submitWord">
+                    <c-spinner color="light" class="process-loading"></c-spinner>
+                </ng-container>
+                <ng-template #submitWord>
+                    Submit
+                </ng-template>
+            </button> -->
+
+            <app-cta [id]="createOrUpdateForm.id" [isProcessing]="isProcessing"></app-cta>
         </c-modal-footer>
     </form>
 </c-modal>

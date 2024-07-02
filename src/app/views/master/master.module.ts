@@ -21,6 +21,7 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { CoreModule } from '../../core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CtaComponent } from '../shared/cta/cta.component'
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     MpcsComponent,
     PaymentMethodComponent,
     ColorComponent,
-    RecipeComponent
+    RecipeComponent,
+    CtaComponent
   ],
   imports: [
     CommonModule,

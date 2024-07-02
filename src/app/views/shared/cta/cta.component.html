@@ -1,0 +1,13 @@
+<div class="cta-container">
+    <button class="btn-cta" [disabled]="isProcessing" [cModalToggle]="id" cButton color="secondary">
+        Cancel
+    </button>
+    <button class="btn-cta" type="submit" [disabled]="isProcessing" cButton color="success">
+        <ng-container *ngIf="isProcessing; else submitWord">
+            <c-spinner color="light" class="process-loading"></c-spinner>
+        </ng-container>
+        <ng-template #submitWord>
+            Submit
+        </ng-template>
+    </button>
+</div>
