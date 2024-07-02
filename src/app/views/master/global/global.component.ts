@@ -8,6 +8,7 @@ import { ACTION } from 'src/app/constants/libraries/action';
 import { DataTableDirective } from 'angular-datatables';
 import { ToasterService } from '@coreui/angular';
 import { ToastrService } from 'ngx-toastr';
+import { GlobalService } from 'src/app/services/global.service';
 @Component({
   selector: 'app-global',
   templateUrl: './global.component.html',
@@ -15,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class GlobalComponent implements OnInit {
 
+  userData: any;
   title: string = 'Master Global';
 
   visibleFilter: boolean = false;
@@ -51,10 +53,12 @@ export class GlobalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private appSvc: AppService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private g: GlobalService
   ) {}
 
   ngOnInit(): void {
+    this.userData = this.g.auth.getUser();
     this.initForm();
     this.initFilter();
     this.initTable();
@@ -171,17 +175,29 @@ export class GlobalComponent implements OnInit {
           orderable: false,
           searchable: false,
           render: (data: any, type: any, row: any) => {
+            ` <div class="dropdown-action">
+                <button class="dropbtn">Action <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+                <div class="dropdown-content">
+                  <button class="action-button action-edit"><i class="fa fa-pencil"></i> Edit</button>
+                  <button class="action-button"><i class="fa fa-power-off"></i> Inactive</button>
+                </div>
+              </div>
+            `
             let actionBtn =  `
-              <div class="button-action">
-                <button class="action-edit"><i class="fa fa-pencil"></i> Edit</button>
+              <div class="dropdown-action">
+                <button class="dropbtn">Action <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+                <div class="dropdown-content">
+                  <button class="action-button action-edit"><i class="fa fa-pencil"></i> Edit</button>
             `;
             if (data == 'I') {
               actionBtn += `
-                <button class="action-activate"><i class="fa fa-power-off"></i> Activate</button>
+                  <button class="action-button action-activate"><i class="fa fa-power-off"></i> Activate</button>
+                </div>
               </div>`
             } else {
               actionBtn += `
-                <button class="action-inactive"><i class="fa fa-power-off"></i> Inactive</button>
+                  <button class="action-button action-inactive"><i class="fa fa-power-off"></i> Inactive</button>
+                </div>
               </div>`
             }
             return actionBtn;
@@ -234,10 +250,19 @@ export class GlobalComponent implements OnInit {
     const valid = this.createUpdateForm.valid;
     if (valid) {
       const body = this.createUpdateForm.getRawValue();
+      body['userUpd'] = this.userData.staffCode;
       const endpoint = this.formStatus == FORM_STATUS.CREATE ? this.appSvc.insertGlobal(body) : this.appSvc.updateGlobal(body);
       endpoint.subscribe(response => {
         if (response?.success) {
-
+          if (this.formStatus == 'CREATE') {
+            this.toastr.success('Pembuatan Data Master Global Berhasil', 'Berhasil!');
+          } else if (this.formStatus == 'ACTIVATE') {
+            this.toastr.success('Aktivasi Data Master Global Berhasil', 'Berhasil!');
+          } else if (this.formStatus == 'INACTIVE') {
+            this.toastr.success('Non Aktivasi Data Master Global Berhasil', 'Berhasil!'); 
+          } else if (this.formStatus == 'UPDATE') {
+            this.toastr.success('Update Data Master Global Berhasil', 'Berhasil!'); 
+          }
         } else {
           this.toastr.error(response?.message, 'Maaf, Terjadi Kesalahan!');
         }

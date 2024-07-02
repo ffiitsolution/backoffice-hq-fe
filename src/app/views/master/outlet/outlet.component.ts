@@ -196,8 +196,13 @@ export class OutletComponent implements AfterContentInit, OnInit {
           searchable: false,
           render: (data: any, type: any, row: any) => {
             return `
-              <div class="button-action">
-                <button class="action-edit"><i class="fa fa-pencil"></i> Edit</button>
+              <div class="dropdown-action">
+                <button class="dropbtn">Action <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+                <div class="dropdown-content">
+                  <button class="action-button"><i class="fa fa-eye"></i> View</button>
+                  <button class="action-button action-edit"><i class="fa fa-pencil"></i> Edit</button>
+                   <button class="action-button"><i class="fa fa-power-off"></i> Inactive</button>
+                </div>
               </div>
             `;
           },
